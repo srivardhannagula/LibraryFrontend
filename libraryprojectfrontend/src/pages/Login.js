@@ -126,7 +126,7 @@ function Login() {
   const navigate = useNavigate();
   const theme=useTheme();
   const isMobile=useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet=useMediaQuery(theme.breakpoints.down("md"));
+  //const isTablet=useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -136,7 +136,7 @@ function Login() {
     e.preventDefault();
     const passwordRegex=/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const specialCharRegex = /[@$!%*?&]/g;
-    const specialCharMatch = form.password.match(specialCharRegex);
+    //const specialCharMatch = form.password.match(specialCharRegex);
     if(!isLogin&&!passwordRegex.test(form.password)){
       alert("Password must be at least 8 characters long and contain at least one letter, one number, and one special character.");
       return;

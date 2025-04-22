@@ -327,8 +327,6 @@ import axios from "../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
-  AppBar,
-  Toolbar,
   Box,
   Button,
   TextField,
@@ -366,9 +364,9 @@ function AdminDashboard() {
   const [showIssuedBooks, setShowIssuedBooks] = useState(false);
   const [query, setQuery] = useState("");
   const [usernameError,setUsernameError]=useState(false);
-  const[bookId,setBookId]=useState("");
-  const[errorMessage,setErrorMessage]=useState("");
-  const [showBookLendingInfo,setShowBookLendingInfo]=useState(false);
+  
+   
+  //const [showBookLendingInfo,setShowBookLendingInfo]=useState(false);
   const [users,setUsers]=useState([]);
   const[showUsers,setShowUsers]=useState(false);
   const [bookCatalogue,setBookCatalogue]=useState(true);
@@ -377,7 +375,7 @@ function AdminDashboard() {
   const [profile,setProfile]=useState(null);
   const [showProfileInfo,setShowProfileInfo]=useState(false);
   const open=Boolean(anchorEl);
-  const [disableConformReturn,setDisableConformReturn]=useState(false);
+  //const [disableConformReturn,setDisableConformReturn]=useState(false);
   const [usersInfo,setUsersInfo]=useState(false);
   const [fullUserInfo,setFullUserInfo]=useState([]);
   const handleAvatarClick=(event)=>{
@@ -451,7 +449,7 @@ function AdminDashboard() {
     setCurrentPage(1);
     setShowIssuedBooks(false);
     setShowUsers(false);
-    setShowBookLendingInfo(false)
+   // setShowBookLendingInfo(false)
     setBookCatalogue(true);
     setUsersInfo(false);
   };
@@ -514,7 +512,7 @@ function AdminDashboard() {
     catch(error){
       if(error.response){
         if(error.response.status===400){
-          if(error.response.data=="Already this book issued"){
+          if(error.response.data==="Already this book issued"){
             alert("You already have this copy");
           }else{
             setUsernameError(true);
@@ -530,7 +528,7 @@ function AdminDashboard() {
         setShowIssuedBooks(false);
         setShowBooks(false);
         setShowUsers(true);
-        setShowBookLendingInfo(false)
+        //setShowBookLendingInfo(false)
         setBookCatalogue(false);
         setUsersInfo(false);
         
@@ -542,7 +540,8 @@ function AdminDashboard() {
       setShowIssuedBooks(false);
       setShowBooks(false);
       setShowUsers(false);
-      setShowBookLendingInfo(false)
+      //
+      // setShowBookLendingInfo(false)
       setBookCatalogue(false);
       setUsersInfo(true);
 
@@ -570,39 +569,15 @@ function AdminDashboard() {
       },
     }); 
     setIssuedBooks(response.data);
-    setDisableConformReturn(false);
+     
     setUsersInfo(false);
     setShowIssuedBooks(true);
     setShowBooks(false);
     setShowUsers(false);
-    setShowBookLendingInfo(true);
+  //  setShowBookLendingInfo(true);
     setBookCatalogue(false);
   };
-      const returnBook=async (id)=>{
-        const numericId=Number(id);
-        if(isNaN(numericId)||numericId<=1000){
-            setErrorMessage("Invalid Id");
-            setShowIssuedBooks(false);
-        setShowBooks(false);
-        setShowUsers(false);
-        setShowBookLendingInfo(false);
-            return;
-        }
-        try{
-        const response=await axios.post(`/admin/returnBook/${numericId}`);
-        setIssuedBooks(response.data);
-        setErrorMessage("");
-        setShowIssuedBooks(true);
-        setShowBooks(false);
-        setShowUsers(false);
-        
-        
-    }
-        catch(error){
-            setErrorMessage("Invalid Book Id");
-        }
-
-    }
+     
     const handleReturnBook=async (issueId,bookId)=>{
       
       try{
@@ -611,7 +586,7 @@ function AdminDashboard() {
         setShowIssuedBooks(true);
         setShowBooks(false);
         setShowUsers(false);
-        setDisableConformReturn(true);
+        
         
         if(response.ok){
           setIssuedBooks(prev=>prev.filter(issue=>issue.id!==issueId));
